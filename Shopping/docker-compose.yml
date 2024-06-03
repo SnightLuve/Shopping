@@ -1,0 +1,22 @@
+
+services:
+  app:
+    image: shop
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/project?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.3.0
+    environment:
+      DATA_HOST: docker-mysql
+      DATA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: project
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123456
