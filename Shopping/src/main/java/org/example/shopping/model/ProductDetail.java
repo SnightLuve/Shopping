@@ -27,9 +27,6 @@ public class ProductDetail {
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     Brand brand;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    Category category;
 
     @ManyToOne
     @JoinColumn(name = "color_id", referencedColumnName = "id")
@@ -39,14 +36,7 @@ public class ProductDetail {
     @JoinColumn(name = "size_id", referencedColumnName = "id")
     Size size;
 
-    @ManyToOne
-    @JoinColumn(name = "sole_id", referencedColumnName = "id")
-    Sole sole;
-
-    @ManyToOne
-    @JoinColumn(name = "material_id", referencedColumnName = "id")
-    Material material;
-    Double quantity;
+    Integer quantity;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     LocalDateTime created_at;

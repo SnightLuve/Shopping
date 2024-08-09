@@ -1,7 +1,7 @@
 package org.example.shopping.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.shopping.dto.reponse.JwtAuthenticationResponse;
+import org.example.shopping.dto.response.JwtAuthenticationResponse;
 import org.example.shopping.dto.request.RefreshTokenRequest;
 import org.example.shopping.dto.request.SignUpRequest;
 import org.example.shopping.dto.request.SigninRequest;
@@ -34,7 +34,7 @@ public class AuthenticationController {
         if (response != null) {
             return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Hoặc một mã lỗi khác phù hợp
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 

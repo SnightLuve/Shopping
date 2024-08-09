@@ -19,28 +19,6 @@ public class HandleException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    //    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public  ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,
-//                                                                         WebRequest request,
-//                                                                         HttpHeaders headers,
-//                                                                         HttpStatusCode statusCode
-//                                                                         ) {
-//        List<String> errors = new ArrayList<>();
-//        for(FieldError error : ex.getBindingResult().getFieldErrors()) {
-//            errors.add(error.getField()+": "+error.getDefaultMessage());
-//        }
-//        for(ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-//            errors.add(error.getObjectName()+": "+error.getDefaultMessage());
-//        }
-//        ResponseObject<?> responseObject=ResponseObject.builder()
-//                .success(false)
-//                .status(HttpStatus.BAD_REQUEST)
-//                .message(ex.getMessage())
-//                .errors(errors)
-//                .build();
-//        return handleExceptionInternal(ex, responseObject, headers, responseObject.getStatus(), request);
-//    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {

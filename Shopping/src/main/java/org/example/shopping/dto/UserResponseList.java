@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.shopping.dto.reponse.UserResponse;
 
 import java.io.Serializable;
 import java.util.List;

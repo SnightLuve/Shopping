@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
+    private Long id;
+    private String name;
+    private Integer status;
 }

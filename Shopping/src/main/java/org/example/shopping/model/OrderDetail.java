@@ -1,28 +1,37 @@
 package org.example.shopping.model;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 @Table(name = "order_detail")
+@Builder
 public class OrderDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productdetailid",referencedColumnName = "id")
-    ProductDetail productDetail;
-    Double soluong;
-    Boolean trangthai;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderid",referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
     Order order;
+    @ManyToOne
+    @JoinColumn(name = "product_detail_id",referencedColumnName = "id")
+    ProductDetail productDetail;
+    private Integer quantity;
+    private Double totalMoney;
 }

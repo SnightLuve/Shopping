@@ -26,7 +26,7 @@ public class ProductDetailRequest implements Serializable {
     Long sizeId;
     Long soleId;
     Long materialId;
-    Double quantity;
+    Integer quantity;
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDateTime createdAt;

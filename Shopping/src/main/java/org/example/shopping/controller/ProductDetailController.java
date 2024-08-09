@@ -4,8 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.shopping.config.language.Translator;
-import org.example.shopping.dto.reponse.ResponseError;
-import org.example.shopping.dto.reponse.ResponseObject;
+import org.example.shopping.dto.response.ResponseObject;
 import org.example.shopping.dto.request.ProductDetailRequest;
 import org.example.shopping.service.ProductDetailService;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,9 +24,8 @@ public class ProductDetailController {
     private final ProductDetailService productDetailService;
 
     @GetMapping("/list")
-    public ResponseEntity<ResponseObject> getAll() {
-        ResponseObject responseObject = new ResponseObject()
-                .builder()
+    public ResponseEntity<?> getAll() {
+        ResponseObject<?> responseObject =  ResponseObject.builder()
                 .data(productDetailService.getAll())
                 .success(true)
                 .message("Get all product detail successfully")
@@ -38,10 +35,10 @@ public class ProductDetailController {
     }
 
     @GetMapping("/data")
-    public ResponseEntity<ResponseObject> getProductDetail(
+    public ResponseEntity<?> getProductDetail(
             @RequestParam(defaultValue = "1", required = false) int pageNo,
             @RequestParam(defaultValue = "5") int pageSize) {
-        ResponseObject responseObject = new ResponseObject().builder()
+        ResponseObject<?> responseObject = ResponseObject.builder()
                 .data(productDetailService.getData(pageNo, pageSize))
                 .status(HttpStatus.OK)
                 .success(true)
@@ -61,9 +58,7 @@ public class ProductDetailController {
         }
 
     @PostMapping(value = "/add", consumes = "application/json")
-    public ResponseEntity<ResponseObject> add(@RequestBody @Valid ProductDetailRequest productDetailRequest, BindingResult bindingResult) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
+    public ResponseEntity<?> add(@RequestBody @Valid ProductDetailRequest productDetailRequest, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             List<String> errors =bindingResult.getFieldErrors()
                     .stream()
@@ -75,7 +70,7 @@ public class ProductDetailController {
                             .status(HttpStatus.BAD_REQUEST)
                             .build());
         }
-        ResponseObject responseObject = new ResponseObject().builder()
+        ResponseObject<?> responseObject = ResponseObject.builder()
                 .status(HttpStatus.CREATED)
                 .message(Translator.toLocale("productDetail.add.success"))
                 .data(productDetailService.insert(productDetailRequest))

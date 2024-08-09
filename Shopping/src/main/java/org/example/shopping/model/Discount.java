@@ -18,8 +18,6 @@ public class Discount {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-//    @OneToMany(mappedBy = "discount",fetch = FetchType.LAZY)
-//    private List<Order> order;
     @Enumerated(EnumType.STRING)
     private Type type;
     @Enumerated(EnumType.STRING)

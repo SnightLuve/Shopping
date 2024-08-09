@@ -1,9 +1,18 @@
 package org.example.shopping.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.example.shopping.dto.reponse.UserResponse;
 import org.example.shopping.util.EnumPattern;
 import org.example.shopping.util.Role;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,14 +36,14 @@ public class User implements UserDetails {
     String username;
     String password;
     String email;
-    String fullname;
+    String fullName;
     Boolean gender;
     String phone;
     String address;
     @Enumerated(EnumType.STRING)
     @EnumPattern(name = "role", regexp = "ADMIN|STAFF")
     Role role;
-    Integer is_Activity;
+    Integer status;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,21 +68,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-    public static UserResponse fromUser(User user) {
-        return UserResponse.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .email(user.getEmail())
-                .fullname(user.getFullname())
-                .gender(user.getGender())
-                .phone(user.getPhone())
-                .address(user.getAddress())
-                .role(user.getRole())
-                .is_Activity(user.getIs_Activity())
-                .build();
-
     }
 }
 

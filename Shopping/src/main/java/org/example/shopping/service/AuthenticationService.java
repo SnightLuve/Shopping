@@ -1,6 +1,6 @@
 package org.example.shopping.service;
 
-import org.example.shopping.dto.reponse.JwtAuthenticationResponse;
+import org.example.shopping.dto.response.JwtAuthenticationResponse;
 import org.example.shopping.dto.request.RefreshTokenRequest;
 import org.example.shopping.dto.request.SignUpRequest;
 import org.example.shopping.dto.request.SigninRequest;

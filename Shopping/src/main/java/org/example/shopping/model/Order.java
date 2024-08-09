@@ -1,56 +1,43 @@
 package org.example.shopping.model;
 
-import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "orders")
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String madonhang;
+    private Long id;
+    private Double totalMoney;
+    private Integer quantity;
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    Payment payment;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
-    LocalDateTime ngaytao;
-    LocalDateTime ngaycapnhat;
-    LocalDateTime ngaygiaohang;
-    LocalDateTime ngaynhan;
-    String tennguoinhan;
-    String diachi;
-    String phone;
-    String tenguoigiao;
-    String sdtnguoigiao;
-    Double giatrigiam;
-    Double tiengiaohang;
-    Double tienship;
-    Double tienmat;
-    Double tienck;
-    Double tienthua;
-    Double thanhtien;
-    @ManyToOne
-    @JoinColumn(name = "discountid")
-    Discount discount;
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    List<Payment> payment;
-    Integer trangthai;
-    @Enumerated(EnumType.STRING)
-    Type type;
-
-    public enum Type{
-        NORMAL,
-        ONLINE
-    }
+    private LocalDateTime createdAt;
+    private Integer status;
 
 }
