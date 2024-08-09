@@ -6,12 +6,14 @@ import org.example.shopping.dto.request.UserRequest;
 import org.example.shopping.model.User;
 import org.example.shopping.repository.UserRepository;
 import org.example.shopping.service.UserService;
+import org.example.shopping.util.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetailsService userDetailsService(){
@@ -47,6 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse addUser(UserRequest userRequest) {
         User user=modelMapper.map(userRequest,User.class);
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         User savedUser=userRepository.save(user);
         return modelMapper.map(savedUser,UserResponse.class);
     }

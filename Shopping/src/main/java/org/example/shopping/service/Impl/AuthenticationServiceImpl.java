@@ -1,13 +1,11 @@
 package org.example.shopping.service.Impl;
 
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
-import org.example.shopping.dto.response.JwtAuthenticationResponse;
 import org.example.shopping.dto.request.RefreshTokenRequest;
 import org.example.shopping.dto.request.SignUpRequest;
 import org.example.shopping.dto.request.SigninRequest;
-import org.example.shopping.util.Role;
+import org.example.shopping.dto.response.JwtAuthenticationResponse;
 import org.example.shopping.model.User;
 import org.example.shopping.repository.UserRepository;
 import org.example.shopping.service.AuthenticationService;
@@ -33,7 +31,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setUsername(signUpRequest.getUsername());
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-        user.setRole(Role.USER);
+        user.setRole(signUpRequest.getRole());
         user.setFullName(signUpRequest.getLastName());
 
         return userRepository.save(user);
