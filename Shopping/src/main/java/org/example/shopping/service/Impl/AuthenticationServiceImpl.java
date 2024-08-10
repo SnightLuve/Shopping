@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.shopping.dto.request.RefreshTokenRequest;
 import org.example.shopping.dto.request.SignUpRequest;
-import org.example.shopping.dto.request.SigninRequest;
+import org.example.shopping.dto.request.SignInRequest;
 import org.example.shopping.dto.response.JwtAuthenticationResponse;
 import org.example.shopping.model.User;
 import org.example.shopping.repository.UserRepository;
@@ -37,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userRepository.save(user);
     }
 
-    public JwtAuthenticationResponse signin(SigninRequest signinRequest) {
+    public JwtAuthenticationResponse signin(SignInRequest signinRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getUsername(), signinRequest.getPassword()));
         var user=userRepository.findByUsername(signinRequest.getUsername()).orElseThrow(()->new IllegalStateException("Invalid email or password"));
         var jwt=jwtService.generateToken(user);

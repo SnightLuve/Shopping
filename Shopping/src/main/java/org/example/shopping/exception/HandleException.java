@@ -49,6 +49,30 @@ public class HandleException {
         return error;
     }
 
+    @ExceptionHandler(ProductDetailNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleProductDetailNotFound(ProductDetailNotFound ex, WebRequest request) {
+        ErrorResponse error = new ErrorResponse();
+        error.setTimestamp(new Date());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setPath(request.getDescription(false).replace("uri=", ""));
+        error.setError("Product Detail Not Found");
+        String message = ex.getMessage();
+        message = message.substring(message.indexOf("") + 1);
+        error.setMessage(message);
+        return error;
+    }
+    @ExceptionHandler(OrderNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleOrderNotFoundException(OrderNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(OrderDetailNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> handleOrderDetailNotFoundException(OrderDetailNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
 
 

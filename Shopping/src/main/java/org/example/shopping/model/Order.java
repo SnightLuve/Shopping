@@ -37,6 +37,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
+    @ManyToOne
+    @JoinColumn(name = "discount_id", referencedColumnName = "id")
+    Discount discount;
+
     private LocalDateTime createdAt;
     private Integer status;
 

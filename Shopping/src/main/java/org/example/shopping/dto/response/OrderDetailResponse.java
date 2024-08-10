@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 public class OrderDetailResponse {
     Long id;
     Long productDetailId;
-    Double soLuong;
-    Boolean trangThai;
-    Long orderId;
+    String productName;
+    String colorName;
+    String sizeName;
+    String brandName;
+    Integer quantity;
+    Double totalMoney;
 }

@@ -1,12 +1,20 @@
 package org.example.shopping.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,9 +32,9 @@ public class Product {
     Double price;
     String description;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("create_at")
+    @CreatedBy
     LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonProperty("update_at")
+    @LastModifiedBy
     LocalDateTime updatedAt;
 }

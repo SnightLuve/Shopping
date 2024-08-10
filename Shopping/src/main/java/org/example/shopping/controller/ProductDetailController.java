@@ -4,15 +4,20 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.shopping.config.language.Translator;
-import org.example.shopping.dto.response.ResponseObject;
 import org.example.shopping.dto.request.ProductDetailRequest;
+import org.example.shopping.dto.response.ResponseObject;
 import org.example.shopping.service.ProductDetailService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -77,5 +82,15 @@ public class ProductDetailController {
                 .success(true)
                 .build();
         return new ResponseEntity<>(responseObject, HttpStatus.CREATED);
+    }
+    @GetMapping("/filter")
+    public ResponseEntity<?> filter(
+            @RequestParam Long productId,
+            @RequestParam Long brandId,
+            @RequestParam Long colorId,
+            @RequestParam Long sizeId,
+            @RequestParam int page
+    ){
+        return new ResponseEntity<>(productDetailService.filterProductDetail(page, colorId, brandId, sizeId, productId), HttpStatus.OK);
     }
 }

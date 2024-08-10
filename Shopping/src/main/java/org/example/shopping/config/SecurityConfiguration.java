@@ -25,7 +25,6 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private String[] WHITE_LIST = {"/api/v1/user/**","/api/v1/admin/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,10 +32,8 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/admin").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers("/api/v1/user/**").hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET,"/api/v1/productDetail/**").hasAnyAuthority(Role.ADMIN.name(),Role.USER.name())
-                        .requestMatchers(HttpMethod.POST,"api/v1/cart/**").hasAnyAuthority(Role.ADMIN.name(),Role.USER.name())
+                        .requestMatchers("/api/v1/admin").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET,"/api/v1/user/getByUserName").hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
