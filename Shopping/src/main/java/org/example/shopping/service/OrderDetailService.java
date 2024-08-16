@@ -6,5 +6,4 @@ public interface OrderDetailService {
     String add(OrderDetailRequest orderDetailRequest);
     String delete(Long id);
     String update(OrderDetailRequest orderDetailRequest, Long id);
-
 }
